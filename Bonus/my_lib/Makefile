@@ -6,7 +6,7 @@
 #    By: sdell-er <sdell-er@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/17 15:44:24 by sdell-er          #+#    #+#              #
-#    Updated: 2024/01/17 16:35:08 by sdell-er         ###   ########.fr        #
+#    Updated: 2024/01/18 21:01:51 by sdell-er         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ SRCS = ./Libft/ft_isascii.c ./Libft/ft_memcpy.c ./Libft/ft_putstr_fd.c ./Libft/f
 	./Libft/ft_lstclear.c ./Libft/ft_lstsize.c ./Libft/ft_lstlast.c ./Libft/ft_lstnew.c ./Libft/ft_strcmp.c \
 	./Libft/ft_lstiter.c ./Libft/ft_lstadd_back.c ./Libft/ft_lstadd_front.c ./Libft/ft_lstmap.c \
 	./ft_printf/ft_printf.c ./ft_printf/ft_putchar.c ./ft_printf/ft_putstr.c ./ft_printf/ft_putnbr.c ./ft_printf/ft_putexa.c \
-	./get_next_line/get_next_line.c ./get_next_line/get_next_line_bonus.c ./get_next_line/get_next_line_utils.c ./get_next_line/get_next_line_utils_bonus.c
+	./get_next_line/get_next_line_bonus.c ./get_next_line/get_next_line_utils_bonus.c
 
 OBJS = $(SRCS:.c=.o)
 
