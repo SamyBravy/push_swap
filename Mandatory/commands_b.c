@@ -6,7 +6,7 @@
 /*   By: sdell-er <sdell-er@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 18:49:48 by sdell-er          #+#    #+#             */
-/*   Updated: 2024/01/18 19:00:51 by sdell-er         ###   ########.fr       */
+/*   Updated: 2024/01/19 20:07:59 by sdell-er         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	swap_b(t_stack *b)
 	write(1, "sb\n", 3);
 }
 
-void	push_b(t_stack *b, t_stack *a)
+void	push_b(t_stack *a, t_stack *b)
 {
 	push(b, a);
 	write(1, "pb\n", 3);

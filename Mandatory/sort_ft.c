@@ -6,46 +6,65 @@
 /*   By: sdell-er <sdell-er@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 20:53:38 by sdell-er          #+#    #+#             */
-/*   Updated: 2024/01/18 19:16:32 by sdell-er         ###   ########.fr       */
+/*   Updated: 2024/01/19 20:49:23 by sdell-er         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	sort_3(t_stack *a)
+void	sort_3(t_stack *a, t_stack *b)
 {
-	int	index_max;
-	int	index_min;
-
 	if (!is_sorted(a))
 	{
-		index_max = i_max(a);
-		if (index_max == a->head)
-			rotate_a(a);
-		else if (index_max != (a->tail - 1 + a->size) % a->size)
-			reverse_rotate_a(a);
-		index_min = i_min(a);
-		if (index_min != a->head)
-			swap_a(a);
+		if (i_max(a) == a->head)
+		{
+			if (!is_sorted(b))
+				rotate_a(a);
+			else
+				rotate_ab(a, b);
+		}
+		else if (i_max(a) != (a->tail - 1 + a->size) % a->size)
+		{
+			if (!is_sorted(b))
+				reverse_rotate_a(a);
+			else
+				reverse_rotate_ab(a, b);
+		}
+		if (i_min(a) != a->head)
+		{
+			if (!is_sorted(b))
+				swap_a(a);
+			else
+				swap_ab(a, b);
+		}
 	}
 }
 
 void	sort_5(t_stack *a)
 {
 	t_stack	b;
+	int		d_tail;
+	int		i;
 
 	if (!is_sorted(a))
 	{
 		init(&b, a->size);
 		if (!b.buffer)
 			exit_error(a);
-		//	scorro fino a trovare il minimo o il secondo piu' piccolo
-		push_b(a, &b);
-		// scorro fino a trovare il minimo
-		push_b(a, &b);
-		// algoritmo per dim = 3 su a sfruttando le mosse doppie per ordinare b al contrario
-		push_a(a, &b);
-		push_a(a, &b);
+		i = i_2min(a);
+		if (dist_top(a, i_min(a), &d_tail) <= dist_top(a, i_2min(a), &d_tail))
+			i = i_min(a);
+		i_at_top(a, i);
+		if (!is_sorted(a))
+		{
+			push_b(a, &b);
+			i = i_min(a);
+			i_at_top(a, i);
+			push_b(a, &b);
+			sort_3(a, &b);
+			push_a(a, &b);
+			push_a(a, &b);
+		}
 		free(b.buffer);
 	}
 }

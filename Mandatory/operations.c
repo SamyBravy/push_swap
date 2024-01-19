@@ -6,7 +6,7 @@
 /*   By: sdell-er <sdell-er@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 19:13:22 by sdell-er          #+#    #+#             */
-/*   Updated: 2024/01/17 18:02:03 by sdell-er         ###   ########.fr       */
+/*   Updated: 2024/01/19 20:43:17 by sdell-er         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,14 @@ void	push(t_stack *s1, t_stack *s2)
 
 void	rotate(t_stack *s)
 {
+	s->buffer[s->tail] = s->buffer[s->head];
 	s->tail = (s->tail + 1) % s->size;
-	s->buffer[(s->tail - 1 + s->size) % s->size] = s->head;
 	s->head = (s->head + 1) % s->size;
 }
 
 void	reverse_rotate(t_stack *s)
 {
 	s->head = (s->head - 1 + s->size) % s->size;
-	s->buffer[s->head] = s->buffer[(s->tail - 1 + s->size) % s->size];
 	s->tail = (s->tail - 1 + s->size) % s->size;
+	s->buffer[s->head] = s->buffer[s->tail];
 }

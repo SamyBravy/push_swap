@@ -6,7 +6,7 @@
 /*   By: sdell-er <sdell-er@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 12:49:41 by sdell-er          #+#    #+#             */
-/*   Updated: 2024/01/17 17:19:29 by sdell-er         ###   ########.fr       */
+/*   Updated: 2024/01/19 19:13:33 by sdell-er         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	main(int argc, char **argv)
 		a.buffer[a.head] = ft_atoi2(argv[argc-- - 1]);
 	}
 	if (a.size - 1 <= 3)
-		sort_3(&a);
+		sort_3(&a, NULL);
 	else if (a.size - 1 <= 5)
 		sort_5(&a);
 	else if (a.size - 1 <= 100)

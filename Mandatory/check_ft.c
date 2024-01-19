@@ -6,7 +6,7 @@
 /*   By: sdell-er <sdell-er@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 19:15:32 by sdell-er          #+#    #+#             */
-/*   Updated: 2024/01/17 17:19:45 by sdell-er         ###   ########.fr       */
+/*   Updated: 2024/01/19 20:48:23 by sdell-er         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ int	is_sorted(t_stack *s)
 {
 	int	i;
 
+	if (!s)
+		return (0);
 	i = s->head;
 	while (i != s->tail && (i + 1) % s->size != s->tail)
 	{

@@ -6,7 +6,7 @@
 /*   By: sdell-er <sdell-er@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 12:49:39 by sdell-er          #+#    #+#             */
-/*   Updated: 2024/01/18 19:06:36 by sdell-er         ###   ########.fr       */
+/*   Updated: 2024/01/19 19:26:06 by sdell-er         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,16 @@ int		is_int(long int n);
 int		is_sorted(t_stack *s);
 void	exit_error(t_stack *s);
 
-void	sort_3(t_stack *a);
+void	sort_3(t_stack *a, t_stack *b);
 void	sort_5(t_stack *a);
 void	sort_100(t_stack *a);
 void	sort_500(t_stack *a);
 
 int		i_max(t_stack *s);
 int		i_min(t_stack *s);
-int		i_value(t_stack *s, int i);
+int		i_2min(t_stack *s);
+int		dist_top(t_stack *s, int i, int *d_tail);
+void	i_at_top(t_stack *a, int i);
 
 void	swap_a(t_stack *a);
 void	push_a(t_stack *a, t_stack *b);
