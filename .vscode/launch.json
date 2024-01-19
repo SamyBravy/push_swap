@@ -7,9 +7,9 @@
       "request": "launch",
       "args": [],
       "stopAtEntry": false,
-      "externalConsole": false,
-      "cwd": "/nfs/homes/sdell-er/Desktop/Progetti/my_lib/Libft",
-      "program": "/nfs/homes/sdell-er/Desktop/Progetti/my_lib/Libft/build/Debug/outDebug",
+      "externalConsole": true,
+      "cwd": "//wsl.localhost/Ubuntu-20.04/home/samy_bravy/42/push_swap/Mandatory",
+      "program": "//wsl.localhost/Ubuntu-20.04/home/samy_bravy/42/push_swap/Mandatory/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [

@@ -21,7 +21,7 @@ void	sort_3(t_stack *a)
 	{
 		index_max = i_max(a);
 		if (index_max == a->head)
-			rotate(a);
+			rotate_a(a);
 		else if (index_max != (a->tail - 1 + a->size) % a->size)
 			reverse_rotate_a(a);
 		index_min = i_min(a);
