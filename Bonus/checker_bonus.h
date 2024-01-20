@@ -6,15 +6,15 @@
 /*   By: sdell-er <sdell-er@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 12:49:39 by sdell-er          #+#    #+#             */
-/*   Updated: 2024/01/18 21:02:58 by sdell-er         ###   ########.fr       */
+/*   Updated: 2024/01/20 20:05:58 by sdell-er         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CHECKER_BONUS_H
 # define CHECKER_BONUS_H
 
-# include "my_lib/Libft/libft.h"
-# include "my_lib/get_next_line/get_next_line_bonus.h"
+# include "../my_lib/Libft/libft.h"
+# include "../my_lib/get_next_line/get_next_line_bonus.h"
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdio.h>
@@ -25,6 +25,7 @@ typedef struct s_stack
 	int	size;
 	int	head;
 	int	tail;
+	int	expanded;
 }	t_stack;
 
 void	swap(t_stack *s);

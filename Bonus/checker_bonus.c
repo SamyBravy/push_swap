@@ -6,7 +6,7 @@
 /*   By: sdell-er <sdell-er@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 15:17:42 by sdell-er          #+#    #+#             */
-/*   Updated: 2024/01/18 18:47:20 by sdell-er         ###   ########.fr       */
+/*   Updated: 2024/01/20 20:14:00 by sdell-er         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,38 @@ static void	init(t_stack *s, int size)
 	s->tail = 0;
 }
 
-static void	add_a(t_stack *a, int *argc, char **argv)
+static void	add_a(t_stack *a, int *argc, char ***argv)
 {
-	if (is_present(a, ft_atoi2(argv[*argc - 1]))
-		|| !is_digit(argv[*argc - 1]) || !is_int(ft_atoi2(argv[*argc - 1])))
+	if (is_present(a, ft_atoi2((*argv)[*argc - 1]))
+		|| !is_digit((*argv)[*argc - 1])
+			|| !is_int(ft_atoi2((*argv)[*argc - 1])))
+	{
+		if (a->expanded)
+			free(*argv);
 		exit_error(a);
+	}
 	a->head = (a->head - 1 + a->size) % a->size;
-	a->buffer[a->head] = ft_atoi2(argv[*argc - 1]);
+	a->buffer[a->head] = ft_atoi2((*argv)[*argc - 1]);
 	(*argc)--;
+}
+
+static void	expand_argv(t_stack *a, char ***argv, int *argc)
+{
+	if (*argc == 2)
+	{
+		*argv = ft_split((*argv)[1], ' ');
+		if (!*argv)
+			exit_error(NULL);
+		*argc = 0;
+		while ((*argv)[*argc])
+			(*argc)++;
+		a->expanded = 1;
+	}
+	else
+		a->expanded = 0;
+	init(a, *argc);
+	if (!a->buffer)
+		exit_error(NULL);
 }
 
 int	main(int argc, char **argv)
@@ -56,14 +80,14 @@ int	main(int argc, char **argv)
 	t_stack	b;
 	char	*op;
 
-	init(&a, argc);
-	if (!a.buffer)
-		exit_error(NULL);
+	expand_argv(&a, &argv, &argc);
 	while (argc > 1)
-		add_a(&a, &argc, argv);
+		add_a(&a, &argc, &argv);
+	if (a.expanded)
+		free(argv);
 	init(&b, argc);
 	if (!b.buffer)
-		exit_error(&b);
+		exit_error(&a);
 	op = get_next_line(STDIN_FILENO);
 	while (op)
 		execute(&a, &b, &op);

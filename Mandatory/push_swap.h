@@ -6,13 +6,14 @@
 /*   By: sdell-er <sdell-er@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 12:49:39 by sdell-er          #+#    #+#             */
-/*   Updated: 2024/01/19 19:26:06 by sdell-er         ###   ########.fr       */
+/*   Updated: 2024/01/20 19:55:09 by sdell-er         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
+# include "../my_lib/Libft/libft.h"
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdio.h>
@@ -23,6 +24,7 @@ typedef struct s_stack
 	int	size;
 	int	head;
 	int	tail;
+	int	expanded;
 }	t_stack;
 
 void	init(t_stack *s, int size);
