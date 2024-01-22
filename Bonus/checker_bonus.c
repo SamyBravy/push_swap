@@ -6,7 +6,7 @@
 /*   By: sdell-er <sdell-er@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 15:17:42 by sdell-er          #+#    #+#             */
-/*   Updated: 2024/01/22 10:40:37 by sdell-er         ###   ########.fr       */
+/*   Updated: 2024/01/22 15:37:39 by sdell-er         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,11 +85,11 @@ int	main(int argc, char **argv)
 	char	*op;
 
 	expand_argv(&a, &argv, &argc);
-	while (argc > 1)
+	while (argc > 0)
 		add_a(&a, &argc, &argv);
 	if (a.expanded)
 		free(argv);
-	init(&b, argc);
+	init(&b, a.size);
 	if (!b.buffer)
 		exit_error(&a);
 	op = get_next_line(STDIN_FILENO);

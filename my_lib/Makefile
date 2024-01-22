@@ -6,12 +6,12 @@
 #    By: sdell-er <sdell-er@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/17 15:44:24 by sdell-er          #+#    #+#              #
-#    Updated: 2024/01/18 21:01:51 by sdell-er         ###   ########.fr        #
+#    Updated: 2024/01/22 15:18:02 by sdell-er         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = my_lib.a
-CC = gcc
+CC = cc
 CC_FLAGS = -Wall -Wextra -Werror
 
 SRCS = ./Libft/ft_isascii.c ./Libft/ft_memcpy.c ./Libft/ft_putstr_fd.c ./Libft/ft_strlcat.c ./Libft/ft_strrchr.c \

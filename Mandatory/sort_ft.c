@@ -6,7 +6,7 @@
 /*   By: sdell-er <sdell-er@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 20:53:38 by sdell-er          #+#    #+#             */
-/*   Updated: 2024/01/20 19:49:01 by sdell-er         ###   ########.fr       */
+/*   Updated: 2024/01/22 16:27:03 by sdell-er         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ void	sort_5(t_stack *a)
 			i_at_top(a, i);
 			push_b(a, &b);
 			sort_3(a, &b);
+			if (is_sorted(&b))
+				swap_b(&b);
 			push_a(a, &b);
 			push_a(a, &b);
 		}
