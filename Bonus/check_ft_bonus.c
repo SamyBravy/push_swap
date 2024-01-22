@@ -6,7 +6,7 @@
 /*   By: sdell-er <sdell-er@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 19:15:32 by sdell-er          #+#    #+#             */
-/*   Updated: 2024/01/17 18:04:11 by sdell-er         ###   ########.fr       */
+/*   Updated: 2024/01/22 10:33:05 by sdell-er         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,19 @@
 int	is_digit(char *str)
 {
 	int	i;
+	int	sign;
 
 	i = 0;
+	sign = 0;
 	while (str[i])
 	{
-		if (!(str[i] >= '0' && str[i] <= '9'))
+		if (str[i] == '+' || str[i] == '-')
+		{
+			if (sign == 1)
+				return (0);
+			sign = 1;
+		}
+		else if (!(str[i] >= '0' && str[i] <= '9'))
 			return (0);
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: sdell-er <sdell-er@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 12:49:41 by sdell-er          #+#    #+#             */
-/*   Updated: 2024/01/20 20:22:05 by sdell-er         ###   ########.fr       */
+/*   Updated: 2024/01/22 10:27:00 by sdell-er         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,9 @@ static void	expand_argv(t_stack *a, char ***argv, int *argc)
 	{
 		*argv = &((*argv)[1]);
 		a->expanded = 0;
+		(*argc)--;
 	}
-	init(a, *argc);
+	init(a, *argc + 1);
 }
 
 static void	free_if(char ***argv, t_stack *a)
