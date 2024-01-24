@@ -6,7 +6,7 @@
 /*   By: sdell-er <sdell-er@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 12:49:39 by sdell-er          #+#    #+#             */
-/*   Updated: 2024/01/22 16:25:38 by sdell-er         ###   ########.fr       */
+/*   Updated: 2024/01/24 11:52:49 by sdell-er         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ typedef struct s_stack
 	int	expanded;
 }	t_stack;
 
-void	init(t_stack *s, int size);
+void	init(t_stack *s, int size, t_stack *s_tofree);
 
 void	swap(t_stack *s);
 void	push(t_stack *s1, t_stack *s2);

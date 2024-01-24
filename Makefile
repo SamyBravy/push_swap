@@ -6,7 +6,7 @@
 #    By: sdell-er <sdell-er@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/16 19:17:18 by sdell-er          #+#    #+#              #
-#    Updated: 2024/01/22 10:33:40 by sdell-er         ###   ########.fr        #
+#    Updated: 2024/01/24 11:49:53 by sdell-er         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ NAME_BONUS = checker
 MY_LIB = ./my_lib
 LIB = ./my_lib/my_lib.a
 SRC = ./Mandatory/push_swap.c ./Mandatory/check_ft.c ./Mandatory/operations.c ./Mandatory/sort_ft.c ./Mandatory/sort_ft_utils.c ./Mandatory/commands_a.c ./Mandatory/commands_b.c ./Mandatory/commands_ab.c 
-SRC_B = ./Bonus/checker_bonus.c ./Bonus/check_ft_bonus.c ./Bonus/operations_bonus.c ./Bonus/execute_operations_bonus.c
+SRC_B = ./Bonus/checker_bonus.c ./Bonus/check_ft_bonus.c ./Bonus/operations_bonus.c ./Bonus/execute_bonus.c
 OBJ = $(SRC:.c=.o)
 OBJ_B = $(SRC_B:.c=.o)
 FLAGS = -g -Wall -Wextra -Werror

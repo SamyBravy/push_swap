@@ -6,7 +6,7 @@
 /*   By: sdell-er <sdell-er@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 20:53:38 by sdell-er          #+#    #+#             */
-/*   Updated: 2024/01/22 16:27:03 by sdell-er         ###   ########.fr       */
+/*   Updated: 2024/01/24 11:44:48 by sdell-er         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	sort_5(t_stack *a)
 
 	if (!is_sorted(a))
 	{
-		init(&b, a->size);
+		init(&b, a->size, a);
 		i = i_2min(a);
 		if (dist_top(a, i_min(a), &d_tail) <= dist_top(a, i_2min(a), &d_tail))
 			i = i_min(a);
@@ -75,7 +75,7 @@ void	sort_100(t_stack *a)
 
 	if (!is_sorted(a))
 	{
-		init(&b, a->size);
+		init(&b, a->size, a);
 		free(b.buffer);
 	}
 }
@@ -86,7 +86,7 @@ void	sort_500(t_stack *a)
 
 	if (!is_sorted(a))
 	{
-		init(&b, a->size);
+		init(&b, a->size, a);
 		free(b.buffer);
 	}
 }

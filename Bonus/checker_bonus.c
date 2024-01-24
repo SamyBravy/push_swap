@@ -6,7 +6,7 @@
 /*   By: sdell-er <sdell-er@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 15:17:42 by sdell-er          #+#    #+#             */
-/*   Updated: 2024/01/22 15:37:39 by sdell-er         ###   ########.fr       */
+/*   Updated: 2024/01/24 11:49:20 by sdell-er         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,7 @@ static void	add_a(t_stack *a, int *argc, char ***argv)
 		|| !is_digit((*argv)[*argc - 1])
 			|| !is_int(ft_atoi2((*argv)[*argc - 1])))
 	{
-		if (a->expanded)
-			free(*argv);
+		free_if(argv, a);
 		exit_error(a);
 	}
 	a->head = (a->head - 1 + a->size) % a->size;
@@ -87,8 +86,7 @@ int	main(int argc, char **argv)
 	expand_argv(&a, &argv, &argc);
 	while (argc > 0)
 		add_a(&a, &argc, &argv);
-	if (a.expanded)
-		free(argv);
+	free_if(&argv, &a);
 	init(&b, a.size);
 	if (!b.buffer)
 		exit_error(&a);

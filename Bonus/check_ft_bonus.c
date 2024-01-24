@@ -6,7 +6,7 @@
 /*   By: sdell-er <sdell-er@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 19:15:32 by sdell-er          #+#    #+#             */
-/*   Updated: 2024/01/22 10:33:05 by sdell-er         ###   ########.fr       */
+/*   Updated: 2024/01/24 11:49:00 by sdell-er         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,12 +67,4 @@ int	is_sorted(t_stack *s)
 		i = (i + 1) % s->size;
 	}
 	return (1);
-}
-
-void	exit_error(t_stack *s)
-{
-	write(2, "Error\n", 6);
-	if (s)
-		free(s->buffer);
-	exit(EXIT_FAILURE);
 }

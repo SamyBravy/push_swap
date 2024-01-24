@@ -6,7 +6,7 @@
 /*   By: sdell-er <sdell-er@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 12:49:41 by sdell-er          #+#    #+#             */
-/*   Updated: 2024/01/22 16:25:50 by sdell-er         ###   ########.fr       */
+/*   Updated: 2024/01/24 11:51:23 by sdell-er         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,11 @@ static long int	ft_atoi2(const char *str)
 	return (res * i);
 }
 
-void	init(t_stack *s, int size)
+void	init(t_stack *s, int size, t_stack *s_tofree)
 {
 	s->buffer = malloc(size * sizeof(int));
 	if (!s->buffer)
-		exit_error(NULL);
+		exit_error(s_tofree);
 	s->size = size;
 	s->head = 0;
 	s->tail = 0;
@@ -60,13 +60,23 @@ static void	expand_argv(t_stack *a, char ***argv, int *argc)
 		a->expanded = 0;
 		(*argc)--;
 	}
-	init(a, *argc + 1);
+	init(a, *argc + 1, NULL);
 }
 
 static void	free_if(char ***argv, t_stack *a)
 {
+	int	i;
+
 	if (a->expanded)
+	{
+		i = 0;
+		while ((*argv)[i])
+		{
+			free((*argv)[i]);
+			i++;
+		}
 		free(*argv);
+	}
 }
 
 int	main(int argc, char **argv)

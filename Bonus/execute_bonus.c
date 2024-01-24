@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execute_operations_bonus.c                         :+:      :+:    :+:   */
+/*   execute_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sdell-er <sdell-er@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 16:19:36 by sdell-er          #+#    #+#             */
-/*   Updated: 2024/01/22 15:31:00 by sdell-er         ###   ########.fr       */
+/*   Updated: 2024/01/24 11:49:59 by sdell-er         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,4 +59,28 @@ void	execute(t_stack *a, t_stack *b, char **op)
 		execute2(a, b, op);
 	free(*op);
 	*op = get_next_line(STDIN_FILENO);
+}
+
+void	exit_error(t_stack *s)
+{
+	write(2, "Error\n", 6);
+	if (s)
+		free(s->buffer);
+	exit(EXIT_FAILURE);
+}
+
+void	free_if(char ***argv, t_stack *a)
+{
+	int	i;
+
+	if (a->expanded)
+	{
+		i = 0;
+		while ((*argv)[i])
+		{
+			free((*argv)[i]);
+			i++;
+		}
+		free(*argv);
+	}
 }
