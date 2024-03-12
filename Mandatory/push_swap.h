@@ -6,7 +6,7 @@
 /*   By: sdell-er <sdell-er@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 12:49:39 by sdell-er          #+#    #+#             */
-/*   Updated: 2024/01/24 11:52:49 by sdell-er         ###   ########.fr       */
+/*   Updated: 2024/03/12 18:21:31 by sdell-er         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,5 +64,7 @@ void	reverse_rotate_b(t_stack *b);
 void	swap_ab(t_stack *a, t_stack *b);
 void	rotate_ab(t_stack *a, t_stack *b);
 void	reverse_rotate_ab(t_stack *a, t_stack *b);
+
+void	put_index(t_stack *s);
 
 #endif

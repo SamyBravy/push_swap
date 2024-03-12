@@ -6,7 +6,7 @@
 /*   By: sdell-er <sdell-er@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 20:53:38 by sdell-er          #+#    #+#             */
-/*   Updated: 2024/01/24 11:44:48 by sdell-er         ###   ########.fr       */
+/*   Updated: 2024/03/12 18:21:08 by sdell-er         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ void	sort_500(t_stack *a)
 	if (!is_sorted(a))
 	{
 		init(&b, a->size, a);
+		put_index(a);
 		free(b.buffer);
 	}
 }
