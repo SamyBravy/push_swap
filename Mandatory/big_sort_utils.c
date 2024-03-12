@@ -42,28 +42,45 @@ static void	sort_arr(int *arr, int dim, int *perm)
 void	put_index(t_stack *s)
 {
 	int		*perm;
+	int		*arr;
 	int		i;
 	int		j;
 
-
-	for (int i = 0; i < ((s->tail - s->head + s->size) % s->size); i++) {
-		printf("%d ", s->buffer[i]);}
-	perm = malloc(((s->tail - s->head + s->size) % s->size) * sizeof(int));
-	sort_arr(s->buffer, ((s->tail - s->head + s->size) % s->size), perm);
+	arr = malloc(((s->tail - s->head + s->size) % s->size) * sizeof(int));
+	if (!arr)
+		exit_error(s);
 	i = 0;
-	while (i < ((s->tail - s->head + s->size) % s->size))
+	while ((s->head + i) % s->size != s->tail)
+	{
+		arr[i] = s->buffer[(s->head + i) % s->size];
+		i++;
+	}
+	perm = malloc(((s->tail - s->head + s->size) % s->size) * sizeof(int));
+	if (!perm)
+	{
+		free(arr);
+		exit_error(s);
+	}
+	sort_arr(arr, ((s->tail - s->head + s->size) % s->size), perm);
+	i = s->head;
+	while (i != s->tail)
 	{
 		j = 0;
-		while (j < ((s->tail - s->head + s->size) % s->size))
+		while (j < (s->tail - s->head + s->size) % s->size)
 		{
 			if (s->buffer[i] == s->buffer[perm[j]])
 				s->buffer[i] = j;
 			j++;
 		}
-		i++;
+		i = (i + 1) % s->size;
 	}
-	for (int i = 0; i < ((s->tail - s->head + s->size) % s->size); i++) {
+	printf("\n");
+	i = s->head;
+	while (i != s->tail)
+	{
 		printf("%d ", s->buffer[i]);
+		i = (i + 1) % s->size;
 	}
 	free(perm);
+	free(arr);
 }

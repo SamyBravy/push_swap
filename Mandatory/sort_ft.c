@@ -76,6 +76,7 @@ void	sort_100(t_stack *a)
 	if (!is_sorted(a))
 	{
 		init(&b, a->size, a);
+		put_index(a);
 		free(b.buffer);
 	}
 }
