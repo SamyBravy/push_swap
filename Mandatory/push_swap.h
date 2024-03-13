@@ -65,6 +65,6 @@ void	swap_ab(t_stack *a, t_stack *b);
 void	rotate_ab(t_stack *a, t_stack *b);
 void	reverse_rotate_ab(t_stack *a, t_stack *b);
 
-void	put_index(t_stack *s);
+void	put_final_position(t_stack *s);
 
 #endif
