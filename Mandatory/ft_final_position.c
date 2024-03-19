@@ -12,26 +12,27 @@
 
 #include "push_swap.h"
 
-static void	bubble_sort(int *arr, int dim, int *perm)
+static void	bubble_sort(int *arr, int dim)
 {
 	int	i;
 	int	j;
 	int	temp;
+	int	swapped;
 
-	i = -1;
-	while (++i < dim)
-		perm[i] = i;
 	i = 0;
-	while (i < dim - 1)
+	swapped = 1;
+	while (i < dim - 1 && swapped)
 	{
+		swapped = 0;
 		j = 0;
 		while (j < dim - 1 - i)
 		{
-			if (arr[perm[j]] > arr[perm[j + 1]])
+			if (arr[j] > arr[j + 1])
 			{
-				temp = perm[j];
-				perm[j] = perm[j + 1];
-				perm[j + 1] = temp;
+				temp = arr[j];
+				arr[j] = arr[j + 1];
+				arr[j + 1] = temp;
+				swapped = 1;
 			}
 			j++;
 		}
@@ -39,7 +40,7 @@ static void	bubble_sort(int *arr, int dim, int *perm)
 	}
 }
 
-static void	put_index(t_stack *s, int *perm, int *arr)
+static void	put_index(t_stack *s, int *arr)
 {
 	int		i;
 	int		j;
@@ -50,8 +51,11 @@ static void	put_index(t_stack *s, int *perm, int *arr)
 		j = 0;
 		while (j < (s->tail - s->head + s->size) % s->size)
 		{
-			if (s->buffer[i] == arr[perm[j]])
+			if (s->buffer[i] == arr[j])
+			{
 				s->buffer[i] = j;
+				break ;
+			}
 			j++;
 		}
 		i = (i + 1) % s->size;
@@ -60,7 +64,6 @@ static void	put_index(t_stack *s, int *perm, int *arr)
 
 void	put_final_position(t_stack *s)
 {
-	int		*perm;
 	int		*arr;
 	int		i;
 
@@ -73,14 +76,7 @@ void	put_final_position(t_stack *s)
 		arr[i] = s->buffer[(s->head + i) % s->size];
 		i++;
 	}
-	perm = malloc(((s->tail - s->head + s->size) % s->size) * sizeof(int));
-	if (!perm)
-	{
-		free(arr);
-		exit_error(s);
-	}
-	bubble_sort(arr, ((s->tail - s->head + s->size) % s->size), perm);
-	put_index(s, perm, arr);
-	free(perm);
+	bubble_sort(arr, ((s->tail - s->head + s->size) % s->size));
+	put_index(s, arr);
 	free(arr);
 }

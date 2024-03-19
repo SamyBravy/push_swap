@@ -72,11 +72,15 @@ void	sort_5(t_stack *a)
 void	sort_100(t_stack *a)
 {
 	t_stack	b;
+	int		i;
 
 	if (!is_sorted(a))
 	{
-		init(&b, a->size, a);
 		put_final_position(a);
+		init(&b, a->size, a);
+		i = 0;
+		while (i++ < (a->size - 1) / 2)
+			push_b(a, &b);
 		free(b.buffer);
 	}
 }
@@ -87,8 +91,8 @@ void	sort_500(t_stack *a)
 
 	if (!is_sorted(a))
 	{
-		init(&b, a->size, a);
 		put_final_position(a);
+		init(&b, a->size, a);
 		free(b.buffer);
 	}
 }

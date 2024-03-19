@@ -27,7 +27,7 @@ bonus : $(NAME_BONUS)
 
 $(NAME): $(OBJ)
 	@make -C $(MY_LIB)
-	$(CC) $(FLAGS) $(OBJ) $(LIB) -o $(NAME)
+	@$(CC) $(FLAGS) $(OBJ) $(LIB) -o $(NAME)
 	
 $(NAME_BONUS) : $(OBJ_B)
 	@make -C $(MY_LIB)
