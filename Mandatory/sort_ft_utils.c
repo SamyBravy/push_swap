@@ -87,8 +87,10 @@ int	dist_top(t_stack *s, int i, int *d_tail)
 void	i_at_top(t_stack *a, int i)
 {
 	int	d_tail;
+	int n;
 
-	while (dist_top(a, i, &d_tail))
+	n = dist_top(a, i, &d_tail);
+	while (n-- > 0)
 	{
 		if (d_tail)
 			reverse_rotate_a(a);
