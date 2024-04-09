@@ -55,7 +55,7 @@ int	is_int(long int n)
 	return (1);
 }
 
-int	is_sorted(t_stack *s)
+int	is_sorted(t_stack *s, int ord)
 {
 	int	i;
 
@@ -64,17 +64,20 @@ int	is_sorted(t_stack *s)
 	i = s->head;
 	while (i != s->tail && (i + 1) % s->size != s->tail)
 	{
-		if (s->buffer[i] > s->buffer[(i + 1) % s->size])
+		if (s->buffer[i] > s->buffer[(i + 1) % s->size] && ord == 0
+			|| s->buffer[i] < s->buffer[(i + 1) % s->size] && ord == 1)
 			return (0);
 		i = (i + 1) % s->size;
 	}
 	return (1);
 }
 
-void	exit_error(t_stack *s)
+void	exit_error(t_stack *s1, t_stack *s2)
 {
 	write(2, "Error\n", 6);
-	if (s)
-		free(s->buffer);
+	if (s1)
+		free(s1->buffer);
+	if (s2)
+		free(s2->buffer);
 	exit(EXIT_FAILURE);
 }

@@ -36,7 +36,7 @@ void	init(t_stack *s, int size, t_stack *s_tofree)
 {
 	s->buffer = malloc(size * sizeof(int));
 	if (!s->buffer)
-		exit_error(s_tofree);
+		exit_error(s_tofree, NULL);
 	s->size = size;
 	s->head = 0;
 	s->tail = 0;
@@ -48,7 +48,7 @@ static void	expand_argv(t_stack *a, char ***argv, int *argc)
 	{
 		*argv = ft_split((*argv)[1], ' ');
 		if (!*argv)
-			exit_error(NULL);
+			exit_error(NULL, NULL);
 		*argc = 0;
 		while ((*argv)[*argc])
 			(*argc)++;
@@ -90,7 +90,7 @@ int	main(int argc, char **argv)
 			|| !is_digit(argv[argc - 1]) || !is_int(ft_atoi2(argv[argc - 1])))
 		{
 			free_if(&argv, &a);
-			exit_error(&a);
+			exit_error(&a, NULL);
 		}
 		a.head = (a.head - 1 + a.size) % a.size;
 		a.buffer[a.head] = ft_atoi2(argv[argc-- - 1]);
@@ -100,10 +100,8 @@ int	main(int argc, char **argv)
 		sort_3(&a, NULL);
 	else if (a.size - 1 <= 5)
 		sort_5(&a);
-	else if (a.size - 1 <= 100)
-		sort_100(&a);
 	else
-		sort_500(&a);
+		sort_100(&a);
 	free(a.buffer);
 	return (0);
 }

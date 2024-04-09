@@ -87,7 +87,7 @@ int	dist_top(t_stack *s, int i, int *d_tail)
 void	i_at_top(t_stack *a, int i)
 {
 	int	d_tail;
-	int n;
+	int	n;
 
 	n = dist_top(a, i, &d_tail);
 	while (n-- > 0)

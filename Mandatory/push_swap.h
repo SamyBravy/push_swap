@@ -37,8 +37,8 @@ void	reverse_rotate(t_stack *s);
 int		is_digit(char *str);
 int		is_present(t_stack *s, int value);
 int		is_int(long int n);
-int		is_sorted(t_stack *s);
-void	exit_error(t_stack *s);
+int		is_sorted(t_stack *s, int ord);
+void	exit_error(t_stack *s1, t_stack *s2);
 
 void	sort_3(t_stack *a, t_stack *b);
 void	sort_5(t_stack *a);
@@ -66,5 +66,7 @@ void	rotate_ab(t_stack *a, t_stack *b);
 void	reverse_rotate_ab(t_stack *a, t_stack *b);
 
 void	put_final_position(t_stack *s);
+
+int		moves_sum(t_stack *a, t_stack *b, int min_moves, int choice);
 
 #endif

@@ -69,14 +69,14 @@ void	put_final_position(t_stack *s)
 
 	arr = malloc(((s->tail - s->head + s->size) % s->size) * sizeof(int));
 	if (!arr)
-		exit_error(s);
+		exit_error(s, NULL);
 	i = 0;
 	while ((s->head + i) % s->size != s->tail)
 	{
 		arr[i] = s->buffer[(s->head + i) % s->size];
 		i++;
 	}
-	bubble_sort(arr, ((s->tail - s->head + s->size) % s->size));
+	bubble_sort(arr, i);
 	put_index(s, arr);
 	free(arr);
 }
