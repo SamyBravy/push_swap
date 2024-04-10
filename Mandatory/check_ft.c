@@ -64,8 +64,8 @@ int	is_sorted(t_stack *s, int ord)
 	i = s->head;
 	while (i != s->tail && (i + 1) % s->size != s->tail)
 	{
-		if (s->buffer[i] > s->buffer[(i + 1) % s->size] && ord == 0
-			|| s->buffer[i] < s->buffer[(i + 1) % s->size] && ord == 1)
+		if ((s->buffer[i] > s->buffer[(i + 1) % s->size] && ord == 0)
+			|| (s->buffer[i] < s->buffer[(i + 1) % s->size] && ord == 1))
 			return (0);
 		i = (i + 1) % s->size;
 	}

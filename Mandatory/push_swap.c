@@ -96,12 +96,12 @@ int	main(int argc, char **argv)
 		a.buffer[a.head] = ft_atoi2(argv[argc-- - 1]);
 	}
 	free_if(&argv, &a);
-	if (a.size - 1 <= 3)
+	if (a.size - 1 <= 3 && !is_sorted(&a, 0))
 		sort_3(&a, NULL);
-	else if (a.size - 1 <= 5)
+	else if (a.size - 1 <= 5 && !is_sorted(&a, 0))
 		sort_5(&a);
-	else
-		sort_100(&a);
+	else if (!is_sorted(&a, 0))
+		sort_n(&a);
 	free(a.buffer);
 	return (0);
 }

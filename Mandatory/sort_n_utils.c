@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sort_100_utils.c                                   :+:      :+:    :+:   */
+/*   sort_n_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sdell-er <sdell-er@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 14:46:44 by sdell-er          #+#    #+#             */
-/*   Updated: 2024/04/09 15:32:17 by sdell-er         ###   ########.fr       */
+/*   Updated: 2024/04/10 17:22:01 by sdell-er         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	moves_sum(t_stack *a, t_stack *b, int min_moves, int choice)
 	clone_stack(&temp_a, a);
 	if (!temp_a.buffer)
 		exit_error(a, b);
-	clone_stack(&temp_b, &b);
+	clone_stack(&temp_b, b);
 	if (!temp_b.buffer)
 	{
 		free(temp_b.buffer);
@@ -49,11 +49,38 @@ int	moves_sum(t_stack *a, t_stack *b, int min_moves, int choice)
 	put_next(a, &b, min_moves, choice);
 	i = 0;
 	moves_sum = 0;
-	if (is_present(&b, (min_moves + 1 * choice) % (a->size - 1))
+	if (is_present(b, (min_moves + 1 * choice) % (a->size - 1))
 		&& is_present(a, (min_moves + 1 - choice) % (a->size - 1)))
 		moves_sum++;
 	while (i < a->size)
-		moves_sum += moves_number(a, &b, i++);
+		moves_sum += moves_number(a, b, i++);
 	free(temp_a.buffer);
 	free(temp_b.buffer);
+	return (moves_sum);
+}
+
+void	put_final_position(t_stack *s)
+{
+	int		i;
+	t_stack	temp;
+
+	clone_stack(&temp, s);
+	if (!temp.buffer)
+		exit_error(s, NULL);
+	i = 0;
+	while (i < s_len(s))
+	{
+		temp.buffer[sorted_pos(s, i, NULL)] = i;
+		i++;
+	}
+	free(s->buffer);
+	clone_stack(s, &temp);
+	if (!temp.buffer)
+		exit_error(&temp, NULL);
+	free(temp.buffer);
+}
+
+int	better_move(t_stack *a, t_stack *b)
+{
+	
 }

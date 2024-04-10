@@ -42,13 +42,11 @@ void	exit_error(t_stack *s1, t_stack *s2);
 
 void	sort_3(t_stack *a, t_stack *b);
 void	sort_5(t_stack *a);
-void	sort_100(t_stack *a);
-void	sort_500(t_stack *a);
+void	sort_n(t_stack *a);
 
-int		i_max(t_stack *s);
-int		i_min(t_stack *s);
-int		i_2min(t_stack *s);
+int		sorted_pos(t_stack *s, int n, t_stack *s_to_free);
 int		dist_top(t_stack *s, int i, int *d_tail);
+int		s_len(t_stack *s);
 void	i_at_top(t_stack *a, int i);
 
 void	swap_a(t_stack *a);

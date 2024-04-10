@@ -16,7 +16,7 @@ void	swap(t_stack *s)
 {
 	int	tmp;
 
-	if ((s->tail - s->head + s->size) % s->size >= 2)
+	if (s_len(s) >= 2)
 	{
 		tmp = s->buffer[s->head];
 		s->buffer[s->head] = s->buffer[(s->head + 1) % s->size];

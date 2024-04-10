@@ -16,21 +16,22 @@ void	sort_3(t_stack *a, t_stack *b)
 {
 	if (!is_sorted(a, 0))
 	{
-		if (i_max(a) == a->head)
+		if (sorted_pos(a, s_len(a) - 1, b) == a->head)
 		{
 			if (!is_sorted(b, 0))
 				rotate_a(a);
 			else
 				rotate_ab(a, b);
 		}
-		else if (i_max(a) != (a->tail - 1 + a->size) % a->size)
+		else if (sorted_pos(a, s_len(a) - 1, b)
+			!= (a->tail - 1 + a->size) % a->size)
 		{
 			if (!is_sorted(b, 0))
 				reverse_rotate_a(a);
 			else
 				reverse_rotate_ab(a, b);
 		}
-		if (i_min(a) != a->head)
+		if (sorted_pos(a, 0, b) != a->head)
 		{
 			if (!is_sorted(b, 0))
 				swap_a(a);
@@ -46,42 +47,38 @@ void	sort_5(t_stack *a)
 	int		d_tail;
 	int		i;
 
+	i = sorted_pos(a, 1, NULL);
+	if (dist_top(a, sorted_pos(a, 0, NULL), &d_tail)
+		<= dist_top(a, sorted_pos(a, 1, NULL), &d_tail))
+		i = sorted_pos(a, 0, NULL);
+	i_at_top(a, i);
 	if (!is_sorted(a, 0))
 	{
 		init(&b, a->size, a);
-		i = i_2min(a);
-		if (dist_top(a, i_min(a), &d_tail) <= dist_top(a, i_2min(a), &d_tail))
-			i = i_min(a);
+		push_b(a, &b);
+		i = sorted_pos(a, 0, &b);
 		i_at_top(a, i);
-		if (!is_sorted(a, 0))
-		{
-			push_b(a, &b);
-			i = i_min(a);
-			i_at_top(a, i);
-			push_b(a, &b);
-			sort_3(a, &b);
-			if (is_sorted(&b, 0))
-				swap_b(&b);
-			push_a(a, &b);
-			push_a(a, &b);
-		}
-		free(b.buffer);
+		push_b(a, &b);
+		sort_3(a, &b);
+		if (is_sorted(&b, 0))
+			swap_b(&b);
+		push_a(a, &b);
+		push_a(a, &b);
 	}
+	free(b.buffer);
 }
 
-void	sort_100(t_stack *a)
+void	sort_n(t_stack *a)
 {
 	t_stack	b;
 	int		i;
 	int		min_moves;
 
 	put_final_position(a);
+	init(&b, a->size, a);
 	min_moves = -42;
-	while (!is_sorted(a, 0) && a->head != a->tail
-		|| !is_sorted(&b, 1) && b.head != b.tail
-		|| moves_number(a, &b, min_moves))
+	while (moves_number(a, &b, min_moves))
 	{
-		init(&b, a->size, a);
 		while (better_move(a, &b))
 			push_b(a, &b);
 		min_moves = a->size - 2;
@@ -99,8 +96,8 @@ void	sort_100(t_stack *a)
 			put_next(a, &b, min_moves, 0);
 		else
 			put_next(a, &b, min_moves, 1);
-		free(b.buffer);
 	}
 	while (b.head != b.tail)
 		push_a(a, &b);
+	free(b.buffer);
 }
