@@ -79,23 +79,18 @@ void	sort_n(t_stack *a)
 	min_moves = -42;
 	while (moves_number(a, &b, min_moves))
 	{
-		while (better_move(a, &b))
+		while (better_pb_init(a, &b))
 			push_b(a, &b);
 		min_moves = a->size - 2;
-		i = 0;
-		while (i < a->size - 2)
+		i = -1;
+		while (++i < a->size - 2)
 		{
-			if (moves_number(a, &b, min_moves) == 0)
+			if (!moves_number(a, &b, min_moves) || (moves_number(a, &b, i)
+					< moves_number(a, &b, min_moves) && moves_number(a, &b, i)))
 				min_moves = i;
-			else if (moves_number(a, &b, i) < moves_number(a, &b, min_moves)
-				&& moves_number(a, &b, i) != 0)
-				min_moves = i;
-			i++;
 		}
-		if (moves_sum(a, &b, min_moves, 0) < moves_sum(a, &b, min_moves, 1))
-			put_next(a, &b, min_moves, 0);
-		else
-			put_next(a, &b, min_moves, 1);
+		put_next(a, &b, min_moves, total_moves_if(a, &b, min_moves, 0)
+			< total_moves_if(a, &b, min_moves, 1));
 	}
 	while (b.head != b.tail)
 		push_a(a, &b);

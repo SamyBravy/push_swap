@@ -64,7 +64,7 @@ void	rotate_ab(t_stack *a, t_stack *b);
 void	reverse_rotate_ab(t_stack *a, t_stack *b);
 
 void	put_final_position(t_stack *s);
-
-int		moves_sum(t_stack *a, t_stack *b, int min_moves, int choice);
+int		total_moves_if(t_stack *a, t_stack *b, int min_moves, int choice);
+int		better_pb_init(t_stack *a, t_stack *b);
 
 #endif
