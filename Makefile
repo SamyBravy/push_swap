@@ -14,7 +14,7 @@ NAME = push_swap
 NAME_BONUS = checker
 MY_LIB = ./my_lib
 LIB = ./my_lib/my_lib.a
-SRC = ./Mandatory/push_swap.c ./Mandatory/check_ft.c ./Mandatory/operations.c ./Mandatory/sort_ft.c ./Mandatory/sort_utils.c ./Mandatory/commands_a.c ./Mandatory/commands_b.c ./Mandatory/commands_ab.c ./Mandatory/sort_n_utils.c
+SRC = ./Mandatory/push_swap.c ./Mandatory/check_ft.c ./Mandatory/operations.c ./Mandatory/sort_ft.c ./Mandatory/sort_utils.c ./Mandatory/commands_s.c ./Mandatory/commands_ab.c ./Mandatory/sort_n_utils.c ./Mandatory/ft_list.c
 SRC_B = ./Bonus/checker_bonus.c ./Bonus/check_ft_bonus.c ./Bonus/operations_bonus.c ./Bonus/execute_bonus.c
 OBJ = $(SRC:.c=.o)
 OBJ_B = $(SRC_B:.c=.o)

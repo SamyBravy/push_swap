@@ -20,14 +20,21 @@
 
 typedef struct s_stack
 {
-	int	*buffer;
-	int	size;
-	int	head;
-	int	tail;
-	int	expanded;
+	char	name;
+	int		*buffer;
+	int		size;
+	int		head;
+	int		tail;
+	int		expanded;
 }	t_stack;
 
-void	init(t_stack *s, int size, t_stack *s_tofree);
+typedef struct s_lst
+{
+	void			*value;
+	struct s_lst	*next;
+}	t_lst;
+
+void	init(t_stack *s, int size, char name, t_stack *s_tofree);
 
 void	swap(t_stack *s);
 void	push(t_stack *s1, t_stack *s2);
@@ -49,15 +56,10 @@ int		dist_top(t_stack *s, int i, int *d_tail);
 int		s_len(t_stack *s);
 void	i_at_top(t_stack *a, int i);
 
-void	swap_a(t_stack *a);
-void	push_a(t_stack *a, t_stack *b);
-void	rotate_a(t_stack *a);
-void	reverse_rotate_a(t_stack *a);
-
-void	swap_b(t_stack *b);
-void	push_b(t_stack *b, t_stack *a);
-void	rotate_b(t_stack *b);
-void	reverse_rotate_b(t_stack *b);
+void	swap_s(t_stack *s);
+void	push_s(t_stack *s1, t_stack *s2);
+void	rotate_s(t_stack *s);
+void	reverse_rotate_s(t_stack *s);
 
 void	swap_ab(t_stack *a, t_stack *b);
 void	rotate_ab(t_stack *a, t_stack *b);
@@ -66,5 +68,10 @@ void	reverse_rotate_ab(t_stack *a, t_stack *b);
 void	put_final_position(t_stack *s);
 int		total_moves_if(t_stack *a, t_stack *b, int min_moves, int choice);
 int		better_pb_init(t_stack *a, t_stack *b);
+int		moves_number(t_stack *a, t_stack *b, int link);
+int		put_next(t_stack *a, t_stack *b, int link, int choice);
+
+void	insert_last(t_lst **list, void *value);
+void	free_list(t_lst **list);
 
 #endif

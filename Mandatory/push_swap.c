@@ -32,7 +32,7 @@ static long int	ft_atoi2(const char *str)
 	return (res * i);
 }
 
-void	init(t_stack *s, int size, t_stack *s_tofree)
+void	init(t_stack *s, int size, char name, t_stack *s_tofree)
 {
 	s->buffer = malloc(size * sizeof(int));
 	if (!s->buffer)
@@ -40,6 +40,7 @@ void	init(t_stack *s, int size, t_stack *s_tofree)
 	s->size = size;
 	s->head = 0;
 	s->tail = 0;
+	s->name = name;
 }
 
 static void	expand_argv(t_stack *a, char ***argv, int *argc)
@@ -60,7 +61,7 @@ static void	expand_argv(t_stack *a, char ***argv, int *argc)
 		a->expanded = 0;
 		(*argc)--;
 	}
-	init(a, *argc + 1, NULL);
+	init(a, *argc + 1, 'a', NULL);
 }
 
 static void	free_if(char ***argv, t_stack *a)

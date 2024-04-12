@@ -19,7 +19,7 @@ void	sort_3(t_stack *a, t_stack *b)
 		if (sorted_pos(a, s_len(a) - 1, b) == a->head)
 		{
 			if (!is_sorted(b, 0))
-				rotate_a(a);
+				rotate_s(a);
 			else
 				rotate_ab(a, b);
 		}
@@ -27,14 +27,14 @@ void	sort_3(t_stack *a, t_stack *b)
 			!= (a->tail - 1 + a->size) % a->size)
 		{
 			if (!is_sorted(b, 0))
-				reverse_rotate_a(a);
+				reverse_rotate_s(a);
 			else
 				reverse_rotate_ab(a, b);
 		}
 		if (sorted_pos(a, 0, b) != a->head)
 		{
 			if (!is_sorted(b, 0))
-				swap_a(a);
+				swap_s(a);
 			else
 				swap_ab(a, b);
 		}
@@ -54,16 +54,16 @@ void	sort_5(t_stack *a)
 	i_at_top(a, i);
 	if (!is_sorted(a, 0))
 	{
-		init(&b, a->size, a);
-		push_b(a, &b);
+		init(&b, a->size, 'b', a);
+		push_s(&b, a);
 		i = sorted_pos(a, 0, &b);
 		i_at_top(a, i);
-		push_b(a, &b);
+		push_s(&b, a);
 		sort_3(a, &b);
 		if (is_sorted(&b, 0))
-			swap_b(&b);
-		push_a(a, &b);
-		push_a(a, &b);
+			swap_s(&b);
+		push_s(a, &b);
+		push_s(a, &b);
 	}
 	free(b.buffer);
 }
@@ -75,12 +75,12 @@ void	sort_n(t_stack *a)
 	int		min_moves;
 
 	put_final_position(a);
-	init(&b, a->size, a);
+	init(&b, a->size, 'b', a);
 	min_moves = -42;
 	while (moves_number(a, &b, min_moves))
 	{
 		while (better_pb_init(a, &b))
-			push_b(a, &b);
+			push_s(&b, a);
 		min_moves = a->size - 2;
 		i = -1;
 		while (++i < a->size - 2)
@@ -93,6 +93,6 @@ void	sort_n(t_stack *a)
 			< total_moves_if(a, &b, min_moves, 1));
 	}
 	while (b.head != b.tail)
-		push_a(a, &b);
+		push_s(a, &b);
 	free(b.buffer);
 }
