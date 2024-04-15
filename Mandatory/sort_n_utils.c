@@ -148,43 +148,51 @@ int	moves_number(t_stack *a, t_stack *b, int link)
 	return (moves_0);
 }
 
+void	to_be_at_top(t_stack *s, t_stack *op_s, int link, int choice)
+{
+	int	i;
+	int	d_tail;
+
+	// mettere l'elemento da spostare all'inizio del suo stack
+	i = 0;
+	while (i < dist_top(s, index_n(s, (link + choice % 2 == (s->name == 'a'))
+				% (a->size - 1)), &d_tail))
+	{
+		if (d_tail)
+			insert_last(op_s, reverse_rotate_s);
+		else
+			insert_last(op_s, rotate_s);
+		i++;
+	}
+	// mettere l'altro elemento all'inizio (o alla fine, dipende da quale è più grande e se siamo in a o in b) del suo stack
+	// ...
+	insert_last(op_s, push_s);
+}
+
 int	put_next(t_stack *a, t_stack *b, int link, int choice)
 {
 	int		moves;
-	int		d_tail;
 	t_lst	*op_a;
 	t_lst	*op_b;
 
 	op_a = NULL;
 	op_b = NULL;
-	moves = 0;
+	//stack differentes
 	if ((is_present(a, link) && is_present(b, (link + 1) % (a->size - 1)))
 		|| (is_present(b, link) && is_present(a, (link + 1) % (a->size - 1))))
 	{
 		if ((is_present(a, link) && choice % 2 == 0)
 			|| (is_present(b, link) && choice % 2 == 1))
-		{
-			while (dist_top(b, index_n(b, (link + choice % 2 == 0)
-						% (a->size - 1)), &d_tail))
-			{
-				if (d_tail)
-					insert_last(&op_b, reverse_rotate_s);
-				else
-					insert_last(&op_b, rotate_s);
-			}
-		}
+			to_be_at_top(b, &op_b, link, choice);
 		else
-		{
-			while (dist_top(a, index_n(a, (link + choice % 2 == 1)
-						% (a->size - 1)), &d_tail))
-			{
-				if (d_tail)
-					insert_last(&op_a, reverse_rotate_s);
-				else
-					insert_last(&op_a, rotate_s);
-			}
-		}
+			to_be_at_top(a, &op_a, link, choice);
+	} // fin stack differentes
+	else // meme stack
+	{
+
 	}
+	
+	moves = 0;
 	free_list(&op_a);
 	free_list(&op_b);
 	return (moves);
