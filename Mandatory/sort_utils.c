@@ -35,9 +35,9 @@ void	i_at_top(t_stack *a, int i)
 	while (n-- > 0)
 	{
 		if (d_tail)
-			reverse_rotate_a(a);
+			reverse_rotate_s(a);
 		else
-			rotate_a(a);
+			rotate_s(a);
 	}
 }
 

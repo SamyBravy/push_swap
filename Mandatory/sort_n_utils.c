@@ -148,25 +148,22 @@ int	moves_number(t_stack *a, t_stack *b, int link)
 	return (moves_0);
 }
 
-void	to_be_at_top(t_stack *s, t_stack *op_s, int link, int choice)
+static void	be_top_down(t_stack *s, t_lst *op_s, int value, int down)
 {
 	int	i;
 	int	d_tail;
+	int	dist;
 
-	// mettere l'elemento da spostare all'inizio del suo stack
+	dist = dist_top(s, index_n(s, value), &d_tail);
 	i = 0;
-	while (i < dist_top(s, index_n(s, (link + choice % 2 == (s->name == 'a'))
-				% (a->size - 1)), &d_tail))
+	while (i < dist + (!d_tail - d_tail) && down)
 	{
 		if (d_tail)
-			insert_last(op_s, reverse_rotate_s);
+			insert_last(&op_s, reverse_rotate_s);
 		else
-			insert_last(op_s, rotate_s);
+			insert_last(&op_s, rotate_s);
 		i++;
 	}
-	// mettere l'altro elemento all'inizio (o alla fine, dipende da quale è più grande e se siamo in a o in b) del suo stack
-	// ...
-	insert_last(op_s, push_s);
 }
 
 int	put_next(t_stack *a, t_stack *b, int link, int choice)
@@ -177,22 +174,36 @@ int	put_next(t_stack *a, t_stack *b, int link, int choice)
 
 	op_a = NULL;
 	op_b = NULL;
-	//stack differentes
 	if ((is_present(a, link) && is_present(b, (link + 1) % (a->size - 1)))
 		|| (is_present(b, link) && is_present(a, (link + 1) % (a->size - 1))))
 	{
-		if ((is_present(a, link) && choice % 2 == 0)
-			|| (is_present(b, link) && choice % 2 == 1))
-			to_be_at_top(b, &op_b, link, choice);
+		if ((is_present(a, link) && !(choice % 2))
+			|| (is_present(b, link) && choice % 2))
+		{
+			be_top_down(b, op_b, (link + !(choice % 2)) % (a->size - 1), 0);
+			be_top_down(a, op_a, (link + choice % 2)
+				% (a->size - 1), !(choice % 2));
+			insert_last(&op_a, push_s);
+		}
 		else
-			to_be_at_top(a, &op_a, link, choice);
-	} // fin stack differentes
-	else // meme stack
-	{
-
+		{
+			be_top_down(a, op_a, (link + !(choice % 2)) % (a->size - 1), 0);
+			be_top_down(b, op_b, (link + choice % 2)
+				% (a->size - 1), !(choice % 2));
+			insert_last(&op_b, push_s);
+		}
 	}
-	
+	else if (/*proches*/)
+	{
+		// ...
+	}
+	else // pas proches
+	{
+		// ...
+	}
 	moves = 0;
+	// faire les movements combinés quand c'est possible
+	// ...
 	free_list(&op_a);
 	free_list(&op_b);
 	return (moves);
