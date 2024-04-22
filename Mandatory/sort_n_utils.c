@@ -68,8 +68,8 @@ int	total_moves_if(t_stack *a, t_stack *b, int min_moves, int choice)
 	if (is_present(b, (min_moves + 1 * choice) % (a->size - 1))
 		&& is_present(a, (min_moves + 1 - choice) % (a->size - 1)))
 		moves_sum++;
-	put_next(&temp_a, &temp_b, min_moves, choice + 2);
-	moves_sum = total_moves(&temp_a, &temp_b);
+	moves_sum += put_next(&temp_a, &temp_b, min_moves, choice + 2);
+	moves_sum += total_moves(&temp_a, &temp_b);
 	free(temp_a.buffer);
 	free(temp_b.buffer);
 	return (moves_sum);
@@ -189,7 +189,7 @@ int	put_next(t_stack *a, t_stack *b, int link, int choice)
 		{
 			be_top_down(a, op_a, (link + !(choice % 2)) % (a->size - 1), 0);
 			be_top_down(b, op_b, (link + choice % 2)
-				% (a->size - 1), !(choice % 2));
+				% (a->size - 1), choice % 2);
 			insert_last(&op_b, push_s);
 		}
 	}
