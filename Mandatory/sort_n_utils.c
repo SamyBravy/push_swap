@@ -187,10 +187,10 @@ int	put_next(t_stack *a, t_stack *b, int link, int choice)
 		}
 		else
 		{
-			be_top_down(a, op_a, (link + !(choice % 2)) % (a->size - 1), 0);
-			be_top_down(b, op_b, (link + choice % 2)
-				% (a->size - 1), choice % 2);
-			insert_last(&op_b, push_s);
+			// be_top_down(a, op_a, (link + !(choice % 2)) % (a->size - 1), 0);
+			// be_top_down(b, op_b, (link + choice % 2)
+			// 	% (a->size - 1), choice % 2);
+			// insert_last(&op_b, push_s);
 		}
 	}
 	else if (/*proches*/)
