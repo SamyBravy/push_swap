@@ -42,7 +42,6 @@ void	rotate(t_stack *s);
 void	reverse_rotate(t_stack *s);
 
 int		is_digit(char *str);
-int		is_present(t_stack *s, int value);
 int		is_int(long int n);
 int		is_sorted(t_stack *s, int ord);
 void	exit_error(t_stack *s1, t_stack *s2);

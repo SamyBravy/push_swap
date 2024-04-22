@@ -87,7 +87,7 @@ int	main(int argc, char **argv)
 	expand_argv(&a, &argv, &argc);
 	while (argc > 0)
 	{
-		if (is_present(&a, ft_atoi2(argv[argc - 1]))
+		if (index_n(&a, ft_atoi2(argv[argc - 1]))
 			|| !is_digit(argv[argc - 1]) || !is_int(ft_atoi2(argv[argc - 1])))
 		{
 			free_if(&argv, &a);

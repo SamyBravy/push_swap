@@ -51,10 +51,10 @@ static int	index_n(t_stack *s, int value)
 	while (i != s->tail)
 	{
 		if (s->buffer[i] == value)
-			return ((i - s->head + s->size) % s->size);
+			return ((i - s->head + s->size) % s->size + 1);
 		i = (i + 1) % s->size;
 	}
-	return (-42);
+	return (0);
 }
 
 int	total_moves_if(t_stack *a, t_stack *b, int min_moves, int choice)
@@ -65,8 +65,8 @@ int	total_moves_if(t_stack *a, t_stack *b, int min_moves, int choice)
 
 	clone_2_stack(a, b, &temp_a, &temp_b);
 	moves_sum = 0;
-	if (is_present(b, (min_moves + 1 * choice) % (a->size - 1))
-		&& is_present(a, (min_moves + 1 - choice) % (a->size - 1)))
+	if (index_n(b, (min_moves + 1 * choice) % (a->size - 1))
+		&& index_n(a, (min_moves + 1 - choice) % (a->size - 1)))
 		moves_sum++;
 	moves_sum += put_next(&temp_a, &temp_b, min_moves, choice + 2);
 	moves_sum += total_moves(&temp_a, &temp_b);
@@ -154,7 +154,7 @@ static void	be_top_down(t_stack *s, t_lst *op_s, int value, int down)
 	int	d_tail;
 	int	dist;
 
-	dist = dist_top(s, index_n(s, value), &d_tail);
+	dist = dist_top(s, index_n(s, value) - 1, &d_tail);
 	i = 0;
 	while (i < dist + (!d_tail - d_tail) && down)
 	{
@@ -174,11 +174,11 @@ int	put_next(t_stack *a, t_stack *b, int link, int choice)
 
 	op_a = NULL;
 	op_b = NULL;
-	if ((is_present(a, link) && is_present(b, (link + 1) % (a->size - 1)))
-		|| (is_present(b, link) && is_present(a, (link + 1) % (a->size - 1))))
+	if ((index_n(a, link) && index_n(b, (link + 1) % (a->size - 1)))
+		|| (index_n(b, link) && index_n(a, (link + 1) % (a->size - 1))))
 	{
-		if ((is_present(a, link) && !(choice % 2))
-			|| (is_present(b, link) && choice % 2))
+		if ((index_n(a, link) && !(choice % 2))
+			|| (index_n(b, link) && choice % 2))
 		{
 			be_top_down(b, op_b, (link + !(choice % 2)) % (a->size - 1), 0);
 			be_top_down(a, op_a, (link + choice % 2)
@@ -187,13 +187,14 @@ int	put_next(t_stack *a, t_stack *b, int link, int choice)
 		}
 		else
 		{
-			// be_top_down(a, op_a, (link + !(choice % 2)) % (a->size - 1), 0);
-			// be_top_down(b, op_b, (link + choice % 2)
-			// 	% (a->size - 1), choice % 2);
-			// insert_last(&op_b, push_s);
+			be_top_down(a, op_a, (link + !(choice % 2)) % (a->size - 1), 0);
+			be_top_down(b, op_b, (link + choice % 2)
+				% (a->size - 1), choice % 2);
+			insert_last(&op_b, push_s);
 		}
 	}
-	else if (/*proches*/)
+	else if ((index_n(a, link) - index_n(a, (link + 1) % (a->size - 1)) + s->size) % s->size - 1 <= 3 && index_n(a, link)
+		|| (index_n(b, link) - index_n(b, (link + 1) % (b->size - 1)) + s->size) % s->size - 1 <= 3 && index_n(b, link))
 	{
 		// ...
 	}

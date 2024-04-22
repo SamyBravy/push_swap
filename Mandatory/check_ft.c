@@ -34,20 +34,6 @@ int	is_digit(char *str)
 	return (1);
 }
 
-int	is_present(t_stack *s, int value)
-{
-	int	i;
-
-	i = s->head;
-	while (i != s->tail)
-	{
-		if (s->buffer[i] == value)
-			return (1);
-		i = (i + 1) % s->size;
-	}
-	return (0);
-}
-
 int	is_int(long int n)
 {
 	if (n > 2147483647 || n < -2147483648)
