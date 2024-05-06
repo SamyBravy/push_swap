@@ -10,7 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME = push_swap
+NAME = push_swapp
 NAME_BONUS = checker
 MY_LIB = ./my_lib
 LIB = ./my_lib/my_lib.a
