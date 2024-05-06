@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   sort_n_utils.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sdell-er <sdell-er@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/06 11:55:25 by sdell-er          #+#    #+#             */
+/*   Updated: 2024/05/06 11:59:29 by sdell-er         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
 static void	clone_stack(t_stack *dst, t_stack *src)
@@ -43,7 +55,7 @@ static int	total_moves(t_stack *a, t_stack *b)
 	return (moves_sum);
 }
 
-static int	index_n(t_stack *s, int value)
+int	index_n(t_stack *s, int value)
 {
 	int	i;
 
@@ -150,13 +162,16 @@ int	moves_number(t_stack *a, t_stack *b, int link)
 
 void	insert_last(t_lst **list, void *value)
 {
-	t_lst	l;
+	t_lst	*l;
 
+	l = malloc(sizeof(t_lst));
+	if (!l)
+		// aiuto
+	l->value = value;
+	l->next = NULL;
 	while (*list)
 		list = &(*list)->next;
-	l.value = value;
-	l.next = NULL;
-	*list = &l;
+	*list = l;
 }
 
 static void	be_top_down(t_stack *s, t_lst *op_s, int value, int down)
@@ -177,11 +192,11 @@ static void	be_top_down(t_stack *s, t_lst *op_s, int value, int down)
 	}
 }
 
-static t_2list	*op_diff_stacks(t_stack *a, t_stack *b, int link, int choice)
+static t_2lst	*op_diff_stacks(t_stack *a, t_stack *b, int link, int choice)
 {
 	t_lst	*op_a;
 	t_lst	*op_b;
-	t_2lst	op_ab;
+	t_2lst	*op_ab;
 
 	op_a = NULL;
 	op_b = NULL;
@@ -200,9 +215,12 @@ static t_2list	*op_diff_stacks(t_stack *a, t_stack *b, int link, int choice)
 			% (a->size - 1), choice % 2);
 		insert_last(&op_b, push_s);
 	}
-	op_ab.l1 = op_a;
-	op_ab.l2 = op_b;
-	return (&op_ab);
+	op_ab = malloc(sizeof(t_2lst));
+	if (!op_ab)
+		// aiuto
+	op_ab->l1 = op_a;
+	op_ab->l2 = op_b;
+	return (op_ab);
 }
 
 static int	dist_i_j(t_stack *a, t_stack *b, int link)
@@ -223,9 +241,23 @@ static int	dist_i_j(t_stack *a, t_stack *b, int link)
 	return (dist_2);
 }
 
+static void	op_next(t_stack *s, t_lst *op_s, int link, int choice)
+{
+	(void)s;
+	(void)op_s;
+	(void)link;
+	(void)choice;
+}
 
+static void	op_far(t_stack *s, t_lst *op_s, int link, int choice)
+{
+	(void)s;
+	(void)op_s;
+	(void)link;
+	(void)choice;
+}
 
-static int	op_same_stack(t_stack *s, t_lst *op_s, int link, int choice)
+static void	op_same_stack(t_stack *s, t_lst *op_s, int link, int choice)
 {
 	if (dist_i_j(s, s, link) == 1)
 	{
@@ -240,14 +272,14 @@ static int	op_same_stack(t_stack *s, t_lst *op_s, int link, int choice)
 
 int	put_next(t_stack *a, t_stack *b, int link, int choice)
 {
-	int		moves;
-	t_lst	*op_a;
-	t_lst	*op_b;
+	int				moves;
+	static t_lst	*op_a = NULL;
+	static t_lst	*op_b = NULL;
 
 	if (dist_i_j(a, b, link) == 0)
 	{
-		op_a = op_diff_stacks(a, b, link, choice)->l1;
-		op_b = op_diff_stacks(a, b, link, choice)->l2;
+		op_a = op_diff_stacks(a, b, link, choice)->l1; // bisogna fare il free di op_ab
+		op_b = op_diff_stacks(a, b, link, choice)->l2; // bisogna fare il free di op_ab
 	}
 	else
 	{

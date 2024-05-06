@@ -75,6 +75,7 @@ int		total_moves_if(t_stack *a, t_stack *b, int min_moves, int choice);
 int		better_pb_init(t_stack *a, t_stack *b);
 int		moves_number(t_stack *a, t_stack *b, int link);
 int		put_next(t_stack *a, t_stack *b, int link, int choice);
+int		index_n(t_stack *s, int value);
 
 void	insert_last(t_lst **list, void *value);
 
