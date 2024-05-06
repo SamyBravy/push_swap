@@ -34,6 +34,12 @@ typedef struct s_lst
 	struct s_lst	*next;
 }	t_lst;
 
+typedef struct s_2lst
+{
+	t_lst	*l1;
+	t_lst	*l2;
+}	t_2lst;
+
 void	init(t_stack *s, int size, char name, t_stack *s_tofree);
 
 void	swap(t_stack *s);
@@ -71,6 +77,5 @@ int		moves_number(t_stack *a, t_stack *b, int link);
 int		put_next(t_stack *a, t_stack *b, int link, int choice);
 
 void	insert_last(t_lst **list, void *value);
-void	free_list(t_lst **list);
 
 #endif

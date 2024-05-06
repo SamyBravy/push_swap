@@ -148,6 +148,17 @@ int	moves_number(t_stack *a, t_stack *b, int link)
 	return (moves_0);
 }
 
+void	insert_last(t_lst **list, void *value)
+{
+	t_lst	l;
+
+	while (*list)
+		list = &(*list)->next;
+	l.value = value;
+	l.next = NULL;
+	*list = &l;
+}
+
 static void	be_top_down(t_stack *s, t_lst *op_s, int value, int down)
 {
 	int	i;
@@ -166,46 +177,87 @@ static void	be_top_down(t_stack *s, t_lst *op_s, int value, int down)
 	}
 }
 
+static t_2list	*op_diff_stacks(t_stack *a, t_stack *b, int link, int choice)
+{
+	t_lst	*op_a;
+	t_lst	*op_b;
+	t_2lst	op_ab;
+
+	op_a = NULL;
+	op_b = NULL;
+	if ((index_n(a, link) && !(choice % 2))
+		|| (index_n(b, link) && choice % 2))
+	{
+		be_top_down(b, op_b, (link + !(choice % 2)) % (a->size - 1), 0);
+		be_top_down(a, op_a, (link + choice % 2)
+			% (a->size - 1), !(choice % 2));
+		insert_last(&op_a, push_s);
+	}
+	else
+	{
+		be_top_down(a, op_a, (link + !(choice % 2)) % (a->size - 1), 0);
+		be_top_down(b, op_b, (link + choice % 2)
+			% (a->size - 1), choice % 2);
+		insert_last(&op_b, push_s);
+	}
+	op_ab.l1 = op_a;
+	op_ab.l2 = op_b;
+	return (&op_ab);
+}
+
+static int	dist_i_j(t_stack *a, t_stack *b, int link)
+{
+	int	dist_1;
+	int	dist_2;
+
+	dist_1 = index_n(a, link) - index_n(a, (link + 1) % (a->size - 1));
+	dist_2 = index_n(b, link) - index_n(b, (link + 1) % (b->size - 1));
+	if (dist_1 && dist_2 && a != b)
+		return (0);
+	if (dist_1 < 0)
+		dist_1 *= -1;
+	else if (dist_2 < 0)
+		dist_2 *= -1;
+	if (dist_1 != 0)
+		return (dist_1);
+	return (dist_2);
+}
+
+
+
+static int	op_same_stack(t_stack *s, t_lst *op_s, int link, int choice)
+{
+	if (dist_i_j(s, s, link) == 1)
+	{
+		if (index_n(s, link) < index_n(s, (link + 1) % (s->size - 1)))
+			return ;
+	}
+	if (dist_i_j(s, s, link) - 1 <= 3)
+		op_next(s, op_s, link, choice);
+	else
+		op_far(s, op_s, link, choice);
+}
+
 int	put_next(t_stack *a, t_stack *b, int link, int choice)
 {
 	int		moves;
 	t_lst	*op_a;
 	t_lst	*op_b;
 
-	op_a = NULL;
-	op_b = NULL;
-	if ((index_n(a, link) && index_n(b, (link + 1) % (a->size - 1)))
-		|| (index_n(b, link) && index_n(a, (link + 1) % (a->size - 1))))
+	if (dist_i_j(a, b, link) == 0)
 	{
-		if ((index_n(a, link) && !(choice % 2))
-			|| (index_n(b, link) && choice % 2))
-		{
-			be_top_down(b, op_b, (link + !(choice % 2)) % (a->size - 1), 0);
-			be_top_down(a, op_a, (link + choice % 2)
-				% (a->size - 1), !(choice % 2));
-			insert_last(&op_a, push_s);
-		}
+		op_a = op_diff_stacks(a, b, link, choice)->l1;
+		op_b = op_diff_stacks(a, b, link, choice)->l2;
+	}
+	else
+	{
+		if (index_n(a, link))
+			op_same_stack(a, op_a, link, choice);
 		else
-		{
-			be_top_down(a, op_a, (link + !(choice % 2)) % (a->size - 1), 0);
-			be_top_down(b, op_b, (link + choice % 2)
-				% (a->size - 1), choice % 2);
-			insert_last(&op_b, push_s);
-		}
-	}
-	else if ((index_n(a, link) - index_n(a, (link + 1) % (a->size - 1)) + s->size) % s->size - 1 <= 3 && index_n(a, link)
-		|| (index_n(b, link) - index_n(b, (link + 1) % (b->size - 1)) + s->size) % s->size - 1 <= 3 && index_n(b, link))
-	{
-		// ...
-	}
-	else // pas proches
-	{
-		// ...
+			op_same_stack(b, op_b, link, choice);
 	}
 	moves = 0;
 	// faire les movements combinés quand c'est possible
 	// ...
-	free_list(&op_a);
-	free_list(&op_b);
 	return (moves);
 }
