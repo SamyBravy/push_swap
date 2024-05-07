@@ -34,11 +34,13 @@ typedef struct s_lst
 	struct s_lst	*next;
 }	t_lst;
 
-typedef struct s_2lst
+typedef struct s_data
 {
-	t_lst	*l1;
-	t_lst	*l2;
-}	t_2lst;
+	t_stack	a;
+	t_stack	b;
+	t_lst	op_a;
+	t_lst	op_b;	
+}	t_data;
 
 void	init(t_stack *s, int size, char name, t_stack *s_tofree);
 

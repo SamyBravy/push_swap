@@ -82,27 +82,27 @@ static void	free_if(char ***argv, t_stack *a)
 
 int	main(int argc, char **argv)
 {
-	t_stack	a;
+	t_data	ab;
 
-	expand_argv(&a, &argv, &argc);
+	expand_argv(&ab.a, &argv, &argc);
 	while (argc > 0)
 	{
-		if (index_n(&a, ft_atoi2(argv[argc - 1]))
+		if (index_n(&ab.a, ft_atoi2(argv[argc - 1]))
 			|| !is_digit(argv[argc - 1]) || !is_int(ft_atoi2(argv[argc - 1])))
 		{
-			free_if(&argv, &a);
-			exit_error(&a, NULL);
+			free_if(&argv, &ab.a);
+			exit_error(&ab.a, NULL);
 		}
-		a.head = (a.head - 1 + a.size) % a.size;
-		a.buffer[a.head] = ft_atoi2(argv[argc-- - 1]);
+		ab.a.head = (ab.a.head - 1 + ab.a.size) % ab.a.size;
+		ab.a.buffer[ab.a.head] = ft_atoi2(argv[argc-- - 1]);
 	}
-	free_if(&argv, &a);
-	if (a.size - 1 <= 3 && !is_sorted(&a, 0))
-		sort_3(&a, NULL);
-	else if (a.size - 1 <= 5 && !is_sorted(&a, 0))
-		sort_5(&a);
-	else if (!is_sorted(&a, 0))
-		sort_n(&a);
-	free(a.buffer);
+	free_if(&argv, &ab.a);
+	if (ab.a.size - 1 <= 3 && !is_sorted(&ab.a, 0))
+		sort_3(&ab.a, NULL);
+	else if (ab.a.size - 1 <= 5 && !is_sorted(&ab.a, 0))
+		sort_5(&ab.a);
+	else if (!is_sorted(&ab.a, 0))
+		sort_n(&ab);
+	free(ab.a.buffer);
 	return (0);
 }

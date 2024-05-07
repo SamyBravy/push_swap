@@ -70,10 +70,11 @@ void	sort_5(t_stack *a)
 
 void	sort_n(t_stack *a)
 {
-	t_stack	b;
-	int		i;
+	static int		min_moves = -42;
 	int		min_moves;
+	t_data	ab;
 
+	ab.a = *a;
 	put_final_position(a);
 	init(&b, a->size, 'b', a);
 	min_moves = -42;
