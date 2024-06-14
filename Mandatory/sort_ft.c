@@ -12,88 +12,84 @@
 
 #include "push_swap.h"
 
-void	sort_3(t_stack *a, t_stack *b)
+void	sort_3(t_data *ab)
 {
-	if (!is_sorted(a, 0))
+	if (!is_sorted(&ab->a, 0))
 	{
-		if (sorted_pos(a, s_len(a) - 1, b) == a->head)
+		if (sorted_pos(&ab->a, s_len(&ab->a) - 1, ab) == ab->a.head)
 		{
-			if (!is_sorted(b, 0))
-				rotate_s(a);
+			if (!is_sorted(&ab->b, 0))
+				rotate_s(&ab->a);
 			else
-				rotate_ab(a, b);
+				rotate_ab(&ab->a, &ab->b);
 		}
-		else if (sorted_pos(a, s_len(a) - 1, b)
-			!= (a->tail - 1 + a->size) % a->size)
+		else if (sorted_pos(&ab->a, s_len(&ab->a) - 1, ab)
+			!= (ab->a.tail - 1 + ab->a.size) % ab->a.size)
 		{
-			if (!is_sorted(b, 0))
-				reverse_rotate_s(a);
+			if (!is_sorted(&ab->b, 0))
+				reverse_rotate_s(&ab->a);
 			else
-				reverse_rotate_ab(a, b);
+				reverse_rotate_ab(&ab->a, &ab->b);
 		}
-		if (sorted_pos(a, 0, b) != a->head)
+		if (sorted_pos(&ab->a, 0, ab) != ab->a.head)
 		{
-			if (!is_sorted(b, 0))
-				swap_s(a);
+			if (!is_sorted(&ab->b, 0))
+				swap_s(&ab->a);
 			else
-				swap_ab(a, b);
+				swap_ab(&ab->a, &ab->b);
 		}
 	}
 }
 
-void	sort_5(t_stack *a)
+void	sort_5(t_data *ab)
 {
-	t_stack	b;
 	int		d_tail;
 	int		i;
 
-	i = sorted_pos(a, 1, NULL);
-	if (dist_top(a, sorted_pos(a, 0, NULL), &d_tail)
-		<= dist_top(a, sorted_pos(a, 1, NULL), &d_tail))
-		i = sorted_pos(a, 0, NULL);
-	i_at_top(a, i);
-	if (!is_sorted(a, 0))
+	i = sorted_pos(&ab->a, 1, ab);
+	if (dist_top(&ab->a, sorted_pos(&ab->a, 0, ab), &d_tail)
+		<= dist_top(&ab->a, sorted_pos(&ab->a, 1, ab), &d_tail))
+		i = sorted_pos(&ab->a, 0, ab);
+	i_at_top(&ab->a, i);
+	if (!is_sorted(&ab->a, 0))
 	{
-		init(&b, a->size, 'b', a);
-		push_s(&b, a);
-		i = sorted_pos(a, 0, &b);
-		i_at_top(a, i);
-		push_s(&b, a);
-		sort_3(a, &b);
-		if (is_sorted(&b, 0))
-			swap_s(&b);
-		push_s(a, &b);
-		push_s(a, &b);
+		push_s(&ab->b, &ab->a);
+		i = sorted_pos(&ab->a, 0, ab);
+		i_at_top(&ab->a, i);
+		push_s(&ab->b, &ab->a);
+		sort_3(ab);
+		if (is_sorted(&ab->b, 0))
+			swap_s(&ab->b);
+		push_s(&ab->a, &ab->b);
+		push_s(&ab->a, &ab->b);
 	}
-	free(b.buffer);
 }
 
-void	sort_n(t_stack *a)
+void	sort_n(t_data *ab)
 {
-	static int		min_moves = -42;
+	int		i;
 	int		min_moves;
-	t_data	ab;
 
-	ab.a = *a;
-	put_final_position(a);
-	init(&b, a->size, 'b', a);
+	put_final_position(&ab->a, ab);
 	min_moves = -42;
-	while (moves_number(a, &b, min_moves))
+	while (moves_number(&ab->a, &ab->b, min_moves))
 	{
-		while (better_pb_init(a, &b))
-			push_s(&b, a);
-		min_moves = a->size - 2;
+		while (better_pb_init(ab))
+			push_s(&ab->b, &ab->a);
+		min_moves = ab->a.size - 2;
 		i = -1;
-		while (++i < a->size - 2)
+		while (++i < ab->a.size - 2)
 		{
-			if (!moves_number(a, &b, min_moves) || (moves_number(a, &b, i)
-					< moves_number(a, &b, min_moves) && moves_number(a, &b, i)))
+			if (!moves_number(&ab->a, &ab->b, min_moves)
+				|| (moves_number(&ab->a, &ab->b, i)
+					< moves_number(&ab->a, &ab->b, min_moves)
+					&& moves_number(&ab->a, &ab->b, i)))
 				min_moves = i;
 		}
-		put_next(a, &b, min_moves, total_moves_if(a, &b, min_moves, 0)
-			< total_moves_if(a, &b, min_moves, 1));
+		put_next(&ab->a, &ab->b, min_moves,
+			total_moves_if(&ab->a, &ab->b, min_moves, 0)
+			< total_moves_if(&ab->a, &ab->b, min_moves, 1));
 	}
-	while (b.head != b.tail)
-		push_s(a, &b);
-	free(b.buffer);
+	while (ab->b.head != ab->b.tail)
+		push_s(&ab->a, &ab->b);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sort_n_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sdell-er <sdell-er@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 11:55:25 by sdell-er          #+#    #+#             */
-/*   Updated: 2024/05/07 11:47:24 by anomourn         ###   ########.fr       */
+/*   Updated: 2024/06/14 19:09:26 by sdell-er         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,16 @@ static void	clone_stack(t_stack *dst, t_stack *src)
 	}
 }
 
-static void	clone_2_stack(t_stack *a, t_stack *b, t_stack *t_a, t_stack *t_b)
+static void	clone_2_stack(t_data *ab, t_stack *t_a, t_stack *t_b)
 {
-	clone_stack(t_a, a);
+	clone_stack(t_a, &ab->a);
 	if (!t_a->buffer)
-		exit_error(a, b);
-	clone_stack(t_b, b);
+		exit_error(ab);
+	clone_stack(t_b, &ab->b);
 	if (!t_a->buffer)
 	{
 		free(t_a->buffer);
-		exit_error(a, b);
+		exit_error(ab);
 	}
 }
 
@@ -87,18 +87,18 @@ int	total_moves_if(t_stack *a, t_stack *b, int min_moves, int choice)
 	return (moves_sum);
 }
 
-void	put_final_position(t_stack *s)
+void	put_final_position(t_stack *s, t_data *ab)
 {
 	t_stack	temp;
 	int		i;
 
 	clone_stack(&temp, s);
 	if (!temp.buffer)
-		exit_error(s, NULL);
+		exit_error(ab);
 	i = 0;
 	while (i < s_len(s))
 	{
-		temp.buffer[sorted_pos(s, i, NULL)] = i;
+		temp.buffer[sorted_pos(s, i)] = i;
 		i++;
 	}
 	free(s->buffer);
@@ -108,7 +108,7 @@ void	put_final_position(t_stack *s)
 	free(temp.buffer);
 }
 
-static int	better_pb(t_stack *a, t_stack *b, t_stack *free1, t_stack *free2)
+static int	better_pb(t_stack *a, t_stack *b, t_data *ab)
 {
 	t_stack	temp_a;
 	t_stack	temp_b;
@@ -129,13 +129,13 @@ static int	better_pb(t_stack *a, t_stack *b, t_stack *free1, t_stack *free2)
 	return (better_move || better_pb(&temp_a, &temp_b, free1, free2));
 }
 
-int	better_pb_init(t_stack *a, t_stack *b)
+int	better_pb_init(t_data *ab)
 {
 	t_stack	temp_a;
 	t_stack	temp_b;
 
-	clone_2_stack(a, b, &temp_a, &temp_b);
-	return (better_pb(&temp_a, &temp_b, a, b));
+	clone_2_stack(ab, &temp_a, &temp_b);
+	return (better_pb(&temp_a, &temp_b, ab));
 }
 
 int	moves_number(t_stack *a, t_stack *b, int link)
@@ -147,11 +147,11 @@ int	moves_number(t_stack *a, t_stack *b, int link)
 
 	if (link < 0)
 		return (-42);
-	clone_2_stack(a, b, &temp_a, &temp_b);
+	clone_2_stack(ab, &temp_a, &temp_b);
 	moves_0 = put_next(&temp_a, &temp_b, link, 2);
 	free(temp_a.buffer);
 	free(temp_b.buffer);
-	clone_2_stack(a, b, &temp_a, &temp_b);
+	clone_2_stack(ab, &temp_a, &temp_b);
 	moves_1 = put_next(&temp_a, &temp_b, link, 3);
 	if (moves_1 < moves_0)
 		moves_0 = moves_1;
@@ -160,13 +160,13 @@ int	moves_number(t_stack *a, t_stack *b, int link)
 	return (moves_0);
 }
 
-void	insert_last(t_lst **list, void *value)
+void	insert_last(t_lst **list, void *value, t_data *ab)
 {
 	t_lst	*l;
 
 	l = malloc(sizeof(t_lst));
 	if (!l)
-		// aiuto
+		exit_error(ab);
 	l->value = value;
 	l->next = NULL;
 	while (*list)
@@ -192,7 +192,7 @@ static void	be_top_down(t_stack *s, t_lst *op_s, int value, int down)
 	}
 }
 
-static t_2lst	*op_diff_stacks(t_stack *a, t_stack *b, int link, int choice)
+static t_2lst	*op_diff_stacks(t_data *ab, int link, int choice)
 {
 	t_lst	*op_a;
 	t_lst	*op_b;
@@ -213,11 +213,11 @@ static t_2lst	*op_diff_stacks(t_stack *a, t_stack *b, int link, int choice)
 		be_top_down(a, op_a, (link + !(choice % 2)) % (a->size - 1), 0);
 		be_top_down(b, op_b, (link + choice % 2)
 			% (a->size - 1), choice % 2);
-		insert_last(&op_b, push_s);
+		insert_last(&op_b, push_s, ab);
 	}
 	op_ab = malloc(sizeof(t_2lst));
 	if (!op_ab)
-		// aiuto
+		exit_error(ab);
 	op_ab->l1 = op_a;
 	op_ab->l2 = op_b;
 	return (op_ab);
