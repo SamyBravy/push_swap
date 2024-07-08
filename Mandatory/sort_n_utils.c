@@ -6,7 +6,7 @@
 /*   By: sdell-er <sdell-er@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 11:55:25 by sdell-er          #+#    #+#             */
-/*   Updated: 2024/06/14 19:09:26 by sdell-er         ###   ########.fr       */
+/*   Updated: 2024/06/14 19:37:28 by sdell-er         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,12 +98,12 @@ void	put_final_position(t_stack *s, t_data *ab)
 	i = 0;
 	while (i < s_len(s))
 	{
-		temp.buffer[sorted_pos(s, i)] = i;
+		temp.buffer[sorted_pos(s, i, ab)] = i;
 		i++;
 	}
 	free(s->buffer);
 	clone_stack(s, &temp);
-	if (!temp.buffer)
+	if (!s->buffer)
 		exit_error(&temp, NULL);
 	free(temp.buffer);
 }
