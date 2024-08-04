@@ -1,0 +1,69 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check_ft.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sdell-er <sdell-er@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/16 19:15:32 by sdell-er          #+#    #+#             */
+/*   Updated: 2024/01/19 20:48:23 by sdell-er         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "push_swap.h"
+
+int	is_digit(char *str)
+{
+	int	i;
+	int	sign;
+
+	i = 0;
+	sign = 0;
+	while (str[i])
+	{
+		if (str[i] == '+' || str[i] == '-')
+		{
+			if (sign == 1)
+				return (0);
+			sign = 1;
+		}
+		else if (!(str[i] >= '0' && str[i] <= '9'))
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+int	is_int(long int n)
+{
+	if (n > 2147483647 || n < -2147483648)
+		return (0);
+	return (1);
+}
+
+int	is_sorted(t_stack *s, int ord)
+{
+	int	i;
+
+	if (!s)
+		return (0);
+	i = s->head;
+	while (i != s->tail && (i + 1) % s->size != s->tail)
+	{
+		if ((s->buffer[i] > s->buffer[(i + 1) % s->size] && ord == 0)
+			|| (s->buffer[i] < s->buffer[(i + 1) % s->size] && ord == 1))
+			return (0);
+		i = (i + 1) % s->size;
+	}
+	return (1);
+}
+
+void	exit_error(t_stack *s1, t_stack *s2)
+{
+	write(2, "Error\n", 6);
+	if (s1)
+		free(s1->buffer);
+	if (s2)
+		free(s2->buffer);
+	exit(EXIT_FAILURE);
+}
