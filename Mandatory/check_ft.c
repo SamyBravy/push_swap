@@ -15,14 +15,17 @@
 int	is_digit(char *str)
 {
 	int	i;
+	int	sign;
 
 	i = 0;
+	sign = 0;
 	while (str[i])
 	{
 		if (str[i] == '+' || str[i] == '-')
 		{
-			if (!(str[i + 1] >= '0' && str[i + 1] <= '9') || i)
+			if (sign == 1)
 				return (0);
+			sign = 1;
 		}
 		else if (!(str[i] >= '0' && str[i] <= '9'))
 			return (0);
@@ -42,7 +45,7 @@ int	is_sorted(t_stack *s, int ord)
 {
 	int	i;
 
-	if (!s || s->head == s->tail)
+	if (!s)
 		return (0);
 	i = s->head;
 	while (i != s->tail && (i + 1) % s->size != s->tail)
@@ -55,27 +58,12 @@ int	is_sorted(t_stack *s, int ord)
 	return (1);
 }
 
-static void	free_list(t_lst **l)
-{
-	t_lst	*tmp;
-
-	while (*l)
-	{
-		tmp = *l;
-		*l = (*l)->next;
-		free(tmp);
-	}
-}
-
-void	exit_error(t_data *ab)
+void	exit_error(t_stack *s1, t_stack *s2)
 {
 	write(2, "Error\n", 6);
-	if (ab)
-	{
-		free(ab->a.buffer);
-		free(ab->b.buffer);
-		free_list(&ab->op_a);
-		free_list(&ab->op_b);
-	}
+	if (s1)
+		free(s1->buffer);
+	if (s2)
+		free(s2->buffer);
 	exit(EXIT_FAILURE);
 }

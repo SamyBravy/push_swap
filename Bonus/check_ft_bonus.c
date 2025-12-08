@@ -15,14 +15,17 @@
 int	is_digit(char *str)
 {
 	int	i;
+	int	sign;
 
 	i = 0;
+	sign = 0;
 	while (str[i])
 	{
 		if (str[i] == '+' || str[i] == '-')
 		{
-			if (!(str[i + 1] >= '0' && str[i + 1] <= '9') || i)
+			if (sign == 1)
 				return (0);
+			sign = 1;
 		}
 		else if (!(str[i] >= '0' && str[i] <= '9'))
 			return (0);

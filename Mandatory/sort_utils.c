@@ -69,14 +69,14 @@ static void	bubble_sort(int *arr, int dim)
 	}
 }
 
-int	sorted_pos(t_stack *s, int n, t_data *ab)
+int	sorted_pos(t_stack *s, int n, t_stack *s_to_free)
 {
 	int		*arr;
 	int		i;
 
 	arr = malloc((s_len(s)) * sizeof(int));
 	if (!arr)
-		exit_error(ab);
+		exit_error(s, s_to_free);
 	i = 0;
 	while ((s->head + i) % s->size != s->tail)
 	{
