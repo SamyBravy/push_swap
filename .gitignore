@@ -1,0 +1,21 @@
+# Executables
+push_swap
+checker
+
+# Object files
+*.o
+*.a
+
+# Builds
+build/
+
+# VS Code
+.vscode/
+
+# System
+.DS_Store
+Thumbs.db
+
+# My Lib (if compiled inside)
+my_lib/*.o
+my_lib/*.a
