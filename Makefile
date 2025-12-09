@@ -26,23 +26,28 @@ all: $(NAME)
 bonus : $(NAME_BONUS)
 
 $(NAME): $(OBJ)
-	@make -C $(MY_LIB)
-	@$(CC) $(FLAGS) $(OBJ) $(LIB) -o $(NAME)
+	@make -C $(MY_LIB) > /dev/null
+	@$(CC) $(FLAGS) $(OBJ) $(LIB) -o $(NAME) > /dev/null
+	@echo "\e[0;93m[$(NAME)] compiled!\e[0m"
 	
 $(NAME_BONUS) : $(OBJ_B)
-	@make -C $(MY_LIB)
-	@$(CC) $(FLAGS) $(OBJ_B) $(LIB) -o $(NAME_BONUS)
+	@make -C $(MY_LIB) > /dev/null
+	@$(CC) $(FLAGS) $(OBJ_B) $(LIB) -o $(NAME_BONUS) > /dev/null
+	@echo "\e[0;93m[$(NAME_BONUS)] compiled!\e[0m"
 
 %.o: %.c
-	$(CC) $(FLAGS) -c $< -o $@
+	@$(CC) $(FLAGS) -c $< -o $@
 
 clean:
-	make clean -C $(MY_LIB)
-	rm -f $(OBJ) $(OBJ_B)
+	@make clean -C $(MY_LIB) > /dev/null
+	@rm -f $(OBJ) $(OBJ_B)
+	@echo "\e[0;91mcleaned!\e[0m"
 
 fclean: clean
-	make fclean -C $(MY_LIB)
-	rm -f $(NAME) $(NAME_BONUS)
+	@make fclean -C $(MY_LIB) > /dev/null
+	@rm -f $(NAME) $(NAME_BONUS)
+	@echo "\e[0;91m[$(NAME)] deleted!\e[0m"
+	@echo "\e[0;91m[$(NAME_BONUS)] deleted!\e[0m"
 
 re: fclean all
 
